@@ -1,0 +1,28 @@
+version: '2'
+
+services:
+
+### NGINX Server Container ##################################
+
+    nginx:
+      build:
+        context: .
+      volumes:
+        - ./logs/:/var/log/nginx
+        - ./sites/:/etc/nginx/sites-available
+      ports:
+        - "8100:80"
+        - "8200:443"
+      networks:
+        - frontend
+        - backend
+
+### Networks Setup ############################################
+
+networks:
+  frontend:
+    external:
+      name: frontend
+  backend:
+    external:
+      name: backend
